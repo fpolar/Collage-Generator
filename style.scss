@@ -1,0 +1,75 @@
+/* SCSS Document */
+body, div, h1{
+	margin: 0;
+	transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, opacity .5s ease-in-out;
+}
+#search-bar{
+	z-index: 2;
+	left: 35vw;
+	width: 30%;
+	input{
+		width: 73%;
+		margin: 0;
+		border: none;
+	}
+	button{
+		border: none;
+		color: white;
+		background-color: darkgray;
+		margin-left: 2%;
+		width: 22.5%;
+	}
+}
+#title, #collage, #prev-collage-container{
+	text-align: center;
+	opacity: 0;
+	position: absolute;
+	color: black;
+}
+.default{
+	background: lightgrey;
+	transition: background-color .5s ease-in-out;
+	#search-bar{
+		position: absolute;
+		top: 46vh;
+	}
+	#title, #collage, #prev-collage-container{
+		height: 0px;
+		opacity: 0;
+	}
+}
+.activated{
+	background: white;
+	#search-bar{
+		position: absolute;
+		top: 80vh;
+	}
+	#title, #collage, #prev-collage-container{
+		opacity: 1;
+	}
+	#title{
+		top: 5vh;
+		height: 7.5vh;
+		width: 100%;
+	}
+	#prev-collage-container{
+		background-image: url("http://weknowmemes.com/generator/uploads/generated/g1329366229914525740.jpg");
+		background-size: contain;
+		top: 87vh;
+		left: 10vw;
+		height: 8vh;
+		width: 80vw;
+	}
+	#collage{
+		background-size: cover;
+		background-position: center;
+		background-image: url("http://i.imgur.com/6L8KY.jpg");
+		top: 12.5vh;
+		left: 20vw;
+		width: 60vw;
+		max-width: 800px;
+		height: 50vh;
+		min-height: 600px;
+		display: block;
+	}
+}
