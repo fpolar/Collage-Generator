@@ -59,7 +59,7 @@ body, div, h1 {
     top: 12.5vh;
     left: 20vw;
     width: 60vw;
-    max-width: 800px;
+    min-width: 800px;
     height: 50vh;
     min-height: 600px;
     display: block; }
