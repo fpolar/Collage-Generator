@@ -1,6 +1,6 @@
 // JavaScript Document
 var collages = [];
-var url = "http::localhost:8080/CollageServlet/";
+var url = "http::localhost:8080/CollageServlet/?";
 
 $(document).ready(function() {
   $("button").click(function(){
@@ -36,7 +36,7 @@ function makeRequest(queryString) { // Make request to Servelet
   .done(function(data) {
     return {
       src: data.src,
-      name: data.query,
+      name: queryString,
       isActive: false, // if it will show up in the timeline
     };
   })
