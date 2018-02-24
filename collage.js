@@ -31,7 +31,8 @@ function handleButtonClick() {
 }
 
 function makeRequest(queryString) { // Make request to Servelet
-  $.get(url + "?query=" + queryString)
+
+  $.get(url + $.param({ query: queryString }))
   .done(function(data) {
     return {
       src: data.src,
@@ -40,6 +41,6 @@ function makeRequest(queryString) { // Make request to Servelet
     };
   })
   .fail(function() {
-    console.log("Request to " + url + "?query=" + queryString + " failed");
+    console.log("Request to " + url + $.param({ query: queryString }) + " failed");
   });
 }
