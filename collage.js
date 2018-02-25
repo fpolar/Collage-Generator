@@ -1,5 +1,6 @@
 // JavaScript Document
 var collages = [];
+var activeCollage = -1;
 var url = "http::localhost:8080/CollageServlet/?";
 
 $(document).ready(function() {
@@ -15,12 +16,21 @@ function positionCollage() {
   	$("#collage").css("left", ($(this).width()- $("#collage").width())/2);
   });
 }
+ 
+function addCollage(collageObj){
+	$("#prev-collage-container").append("<div title='"+collageObj.name+"'style='display: none'><img src='"+collageObj.src+"'></div>");
+    collages.push(collageObj);
+	activeCollage = collages.length-1;
+}
+
+$("#prev-collage-container div")
 
 function handleButtonClick() {
   var searchQuery = $("#input-field").val();
   if(searchQuery.length > 0 && searchQuery != undefined) {
     var collageObj = makeRequest(searchQuery);
-    collages.push(collageObj);
+	addCollage(collageObj);
+	$("#collage").backgroundImage("url("+collageObj.src+")")
 
     $("body").removeClass("default");
     $("body").addClass("activated");
