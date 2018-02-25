@@ -24,8 +24,11 @@ public class Collage extends Picture {
 		}
 		return null;
 	}
-	public void convertToPng() {
+	//converts the collage to a png, saves it to the server's HD, 
+	//and returns the string with the location
+	public String convertToPng() {
 		
+		return "";
 	}
 	
 	

@@ -8,7 +8,12 @@ public class CollageGenerator {
 	private boolean isFull() {
 		return true;
 	}
+	
 	public String buildCollage(String query) {
+		//request images from fetcher
+		//place all of the images 
+		//generate the png
+		//return the string with the location
 		return "";
 	}
 	private void placeImage(Image img) {
