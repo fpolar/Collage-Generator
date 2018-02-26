@@ -34,7 +34,6 @@ public class MainServlet extends HttpServlet {
 		String query = request.getParameter("query");
 		CollageGenerator generator = new CollageGenerator();
 		String collage = generator.buildCollage(query);
-		//String json = "{\"src\": \"" + collage + "\"}";
 		out.println("{\"src\": \"" + collage + "\"}");
 		
 	}
