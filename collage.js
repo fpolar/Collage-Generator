@@ -50,6 +50,7 @@ function repositionElements(){
 function addCollage(collageObj){
 	activeCollage = collages.length;
 	$("#prev-collage-container").append("<div id='collage"+activeCollage+"' class='active' title='"+collageObj.name+"' style='background-image: url("+collageObj.src+")'></div>");
+	$("#export").attr("href", collageObj.src);
     collages.push(collageObj);
 }
 
@@ -65,6 +66,7 @@ $("#prev-collage-container").on("click", "div", function(){
 	
 	$("#collage").css("backgroundImage", "url("+collages[activeCollage].src+")");
 	$("#title").text("Collage for Topic " + collages[activeCollage].name);
+	$("#export").attr("href", collages[activeCollage].src);
 	$(this).addClass("active");
 	
 });
