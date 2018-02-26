@@ -5,7 +5,7 @@ body, div, h1 {
 
 #search-bar {
   z-index: 2;
-  left: 35vw;
+  left: 25vw;
   width: 50%; }
   #search-bar input {
     width: 50%;
@@ -29,7 +29,8 @@ body, div, h1 {
   transition: background-color .5s ease-in-out; }
   .default #search-bar {
     position: absolute;
-    top: 46vh; }
+    top: 46vh;
+    left: 37.5vw; }
   .default #title, .default #collage, .default #prev-collage-container, .default #export {
     opacity: 0; }
   .default #collage {

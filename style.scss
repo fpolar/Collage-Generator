@@ -5,7 +5,7 @@ body, div, h1{
 }
 #search-bar{
 	z-index: 2;
-	left: 35vw;
+	left: 25vw;
 	width: 50%;
 	input{
 		width: 50%;
@@ -32,6 +32,7 @@ body, div, h1{
 	#search-bar{
 		position: absolute;
 		top: 46vh;
+		left: 37.5vw;
 	}
 	#title, #collage, #prev-collage-container, #export{
 		opacity: 0;
