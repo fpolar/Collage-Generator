@@ -49,7 +49,8 @@ function repositionElements(){
  
 function addCollage(collageObj){
 	activeCollage = collages.length;
-	$("#prev-collage-container").append("<div id='collage"+activeCollage+"' class='active' title='"+collageObj.name+"' style='background-image: url("+collageObj.src+")'></div>");
+	$("#prev-collage-container").append("<div id='collage"+activeCollage+"' class='active' title='"+collageObj.name+"')'></div>");
+	$("#collage"+activeCollage).css("backgroundImage","url("+collageObj.src+")")
     collages.push(collageObj);
 }
 

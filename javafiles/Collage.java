@@ -87,6 +87,11 @@ public class Collage extends Picture {
 				i--;
 				retry = true;
 				System.out.println("trying again");
+			} catch (Exception e) {
+				index++;
+				i--;
+				retry = true;
+				System.out.println("trying again");
 			}
 		}
 		return images;
