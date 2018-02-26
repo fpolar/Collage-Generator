@@ -61,10 +61,11 @@ public class CollageGenerator {
 		//give all images random rotation
 		//add to collage
 		//generate png in collage 
+		
 		//return string to location of png
 		
 		
-		return "";
+		return mCollage.convertToPng();
 	}
 	
 	private void placeImage(Image img) {
