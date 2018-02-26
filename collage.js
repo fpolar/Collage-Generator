@@ -1,10 +1,10 @@
 // JavaScript Document
 var collages = [];
 var activeCollage = -1;
-var url = "http::localhost:8080/CollageServlet/?";
+var url = "CollageServlet?";
 
 $(document).ready(function() {
-	fillCollagesArrayTest(10);
+	//fillCollagesArrayTest(10);
 	$("#search").click(function(){
     	handleSearchButtonClick();
   	});
@@ -92,28 +92,37 @@ $("input").keyup(function(){
 function handleSearchButtonClick() {
   var searchQuery = $("#input-field").val();
   if(searchQuery.length > 0 && searchQuery != undefined) {
-//  var collageObj = makeRequest(searchQuery);
-//	addCollage(collageObj);
-//	$("#collage").backgroundImage("url("+collageObj.src+")")
-//	$("#title").text("Collage for Topic " + collageObj.name);
+	var collageObj = makeRequest(searchQuery);
+	console.log(collageObj);
+	addCollage(collageObj);
+	$("#collage").css("backgroundImage","url("+collageObj.src+")")
+	$("#title").text("Collage for Topic " + collageObj.name);
 
     $("body").removeClass("default");
     $("body").addClass("activated");
     $("#search").text("Build Another Collage");
 	repositionElements();
-  	}
+  }
 }
 
 function makeRequest(queryString) { // Make request to Servelet
-  $.get(url + $.param({ query: queryString }))
-  .done(function(data) {
-    return {
-      src: data.src,
-      name: queryString,
-      isActive: false, // if it will show up in the timeline
-    };
-  })
-  .fail(function() {
-    console.log("Request to " + url + $.param({ query: queryString }) + " failed");
-  });
+	var thisData = null;
+	var obj = null;
+	$.ajax({
+		type: 'get',
+	    url: (url + $.param({ query: queryString })),
+	    async: false,
+	    contentType: "application/json; charset=utf-8"
+    }).done(function(data) {
+    	console.log(data);
+    	thisData = JSON.parse(data);
+    	
+	})
+	obj = {
+    	      "src": thisData.src,
+    	      "name": queryString,
+    	      "isActive": false // if it will show up in the timeline
+	};
+	return obj;
+	
 }

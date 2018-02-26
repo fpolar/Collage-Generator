@@ -141,7 +141,7 @@ public class Collage extends Picture {
 	//converts the collage to a png, saves it to the server's HD, 
 	//and returns the string with the location
 
-	public String convertToPng() {
+	public String convertToPng(String mPath) {
 		//find old images with same names and delete them
 		ArrayList<BufferedImage> images = this.downloadImages();
 		BufferedImage result = new BufferedImage(
@@ -161,10 +161,13 @@ public class Collage extends Picture {
 	        g.drawImage(currentImage ,position.getKey(), position.getValue(), null);
 	    }
 		Collage.id++;
-		File file = new File("Collage"+ id + ".png");
+		
+		File file = new File(mPath + "Collage"+ id + ".png");
 	    try {
 	    	
 			ImageIO.write(result, "png", file);
+
+			System.out.println("File write complete! Saved to: "+ file.getAbsolutePath());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -16,7 +16,7 @@ public class CollageGenerator {
 	public CollageGenerator() {
 		this.mCollage = new Collage("",WIDTH, HEIGHT);
 	}
-	public String buildCollage(String query) {
+	public String buildCollage(String query, String mPath) {
 		//HIGH LEVEL
 		//request images from fetcher
 		//place all of the images 
@@ -25,6 +25,7 @@ public class CollageGenerator {
 		
 		//DETAILED
 		//grab images from fetcher
+		System.out.println("getting here");
 		this.mCollage.setName(query);
 		ArrayList<Image> images = Fetcher.getImageList(query);
 		//int backgroundSide = (int)Math.sqrt((WIDTH/4)*(WIDTH/4) + (HEIGHT/4)*(HEIGHT/4));
@@ -57,6 +58,7 @@ public class CollageGenerator {
 			}
 			
 		}
+		
 		//then loop through 26 times 
 //		for(int i = 16; i < 30; i++){
 //			Image tile = images.get(i);
@@ -81,7 +83,7 @@ public class CollageGenerator {
 		//return string to location of png
 		
 		
-		return mCollage.convertToPng();
+		return mCollage.convertToPng(mPath);
 	}
 	
 	private void placeImage(Image img) {
@@ -90,8 +92,8 @@ public class CollageGenerator {
 	private void placeImages (ArrayList<Image> images) {
 		
 	}
-	public static void main (String args[]) {
-		CollageGenerator cg = new CollageGenerator();
-		System.out.println(cg.buildCollage("puppy"));
-	}
+//	public static void main (String args[]) {
+//		CollageGenerator cg = new CollageGenerator();
+//		System.out.println(cg.buildCollage("puppy"));
+//	}
 }
