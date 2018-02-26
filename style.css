@@ -62,7 +62,7 @@ body, div, h1 {
       background-repeat: no-repeat;
       cursor: pointer; }
     .activated #prev-collage-container .active {
-      display: none; }
+       }
   .activated #collage {
     background-size: cover;
     background-position: center;

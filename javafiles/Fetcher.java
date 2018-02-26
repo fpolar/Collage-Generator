@@ -24,6 +24,70 @@ public class Fetcher {
 	 * @param search The search terms
 	 * @return List of Images
 	 */
+	public static String getNewURL(String search, int index) {
+		ArrayList<Image> images = new ArrayList<Image>();
+		
+		/*
+		 * GoogleImages free search API only returns 10 images per request. Google
+		 * therefore recommends making multiple calls to the API, incrementing the starting
+		 * index by 10 for each consecutive call. 
+		 */
+		for(int startIndex = index; startIndex <= index+1; startIndex += 1) {
+			HttpURLConnection conn = null;
+			try {
+				String key=mApiKey;
+				
+				//Construct URL request
+			    String qry = search.replace(' ', '+');
+			    URL url = new URL(
+			            "https://www.googleapis.com/customsearch/v1?key="+key+ "&" + mCseKey + "&q="+ qry + "&alt=json&searchType=image&start=" + startIndex);
+			    conn = (HttpURLConnection) url.openConnection();
+			    conn.setRequestMethod("GET");
+			    conn.setRequestProperty("Accept", "application/json");
+			    
+			    //Get data returned from request
+			    BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
+			    
+			    //Initialize parsing variables
+			    String output;
+			    String link = "";
+			    int width = 0;
+			    int height = 0;
+			    while ((output = br.readLine()) != null) {
+			    		//Parse Json returned to extract the URL, width, and height of each image
+			        if(output.contains("\"link\": \"")){   
+			        		int linkStart = output.indexOf("\"link\": \"")+("\"link\": \"").length();
+			        		int linkEnd =  output.indexOf("\",");
+			            link=output.substring(linkStart, linkEnd);
+			        }   
+			        else if(output.contains("\"height\": ")){ 
+			        		int heightStart = output.indexOf("\"height\": ")+("\"height\": ").length();
+			        		int heightEnd = output.indexOf(",");
+			            height=Integer.parseInt(output.substring(heightStart, heightEnd));
+			        }  
+			        else if(output.contains("\"width\": ")){
+				        	int widthStart = output.indexOf("\"width\": ")+("\"width\": ").length();
+			        		int widthEnd = output.indexOf(",");
+			            width=Integer.parseInt(output.substring(widthStart, widthEnd));
+			        } 
+			        
+			        //adds image to list if all properties are found in Json
+			        if(link != "" && width != 0 && height != 0) {
+			        	return link;
+				    		
+				    }
+			    }
+			} catch (IOException ioe) {
+				System.out.println("ioe: " + ioe.getMessage());
+			} finally {
+				//kill URL connection
+			    if (conn != null) {
+			    		conn.disconnect();
+			    }
+			}
+		}
+		return "";
+	}
 	public static ArrayList<Image> getImageList(String search) {
 		ArrayList<Image> images = new ArrayList<Image>();
 		
