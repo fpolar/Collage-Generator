@@ -8,9 +8,7 @@ $(document).ready(function() {
 	$("#search").click(function(){
     	handleSearchButtonClick();
   	});
-	$("#export").click(function(){
-    	handleSearchButtonClick();
-  	});
+
   	$( window ).resize(repositionElements);
 });
 
@@ -51,6 +49,7 @@ function addCollage(collageObj){
 	activeCollage = collages.length;
 	$("#prev-collage-container").append("<div id='collage"+activeCollage+"' class='active' title='"+collageObj.name+"')'></div>");
 	$("#collage"+activeCollage).css("backgroundImage","url("+collageObj.src+")")
+	$("#download-button").attr("href", collageObj.src);
     collages.push(collageObj);
 }
 
@@ -66,6 +65,7 @@ $("#prev-collage-container").on("click", "div", function(){
 	
 	$("#collage").css("backgroundImage", "url("+collages[activeCollage].src+")");
 	$("#title").text("Collage for Topic " + collages[activeCollage].name);
+	$("#download-button").attr("href", collages[activeCollage].src);
 	$(this).addClass("active");
 	
 });
