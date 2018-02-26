@@ -90,13 +90,4 @@ public class Fetcher {
 		}
 		return images;
 	}
-	
-	public static void main(String[] args)
-	{
-		System.out.println("Testing");
-		ArrayList<Image> imgs = Fetcher.getImageList("cat");
-		for(Image img: imgs) {
-			System.out.println(img.getSource() + " (" + img.getDimensions().getKey() + " x " + img.getDimensions().getValue() + ")");
-		}
-	}
 }
