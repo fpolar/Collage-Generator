@@ -2,16 +2,13 @@ package DataContainers;
 
 import javafx.util.Pair;
 
-public abstract class Picture {
-	protected String mName; 
+public abstract class Picture { 
 	protected Pair<Integer, Integer> mDimensions;
 	protected String mSource;
-	
-	public void setName(String name) {
-		this.mName = name;
-	}
-	public String getName(){
-		return mName;
+
+	public Picture(String link, int width, int height) {
+		mSource = source;
+		mDimensions = new Pair(width, height);
 	}
 	public void setDimensions(Pair<Integer, Integer> dimensions) {
 		this.mDimensions = dimensions;
