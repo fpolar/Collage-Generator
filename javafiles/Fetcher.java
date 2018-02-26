@@ -104,7 +104,7 @@ public class Fetcher {
 				//Construct URL request
 			    String qry = search.replace(' ', '+');
 			    URL url = new URL(
-			            "https://www.googleapis.com/customsearch/v1?key="+key+ "&" + mCseKey + "&q="+ qry + "&alt=json&searchType=image&start=" + startIndex);
+			            "https://www.googleapis.com/customsearch/v1?key="+key+ "&" + mCseKey + "&q="+ qry + "&alt=json&searchType=image&imgSize=small&start=" + startIndex);
 			    conn = (HttpURLConnection) url.openConnection();
 			    conn.setRequestMethod("GET");
 			    conn.setRequestProperty("Accept", "application/json");
