@@ -15,7 +15,7 @@ public class Image extends Picture {
 	private static final int MAX_ROTATION = 46;
 	
 	private Pair<Integer, Integer> mPosition;
-	private int mRotation;
+	private int mRotation = 0;
 	
 	public Image(String source, int width, int height) {
 		super(source, width, height);

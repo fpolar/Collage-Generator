@@ -25,16 +25,21 @@ public class CollageGenerator {
 		
 		//DETAILED
 		//grab images from fetcher
+		this.mCollage.setName(query);
 		ArrayList<Image> images = Fetcher.getImageList(query);
-		int backgroundSide = (int)Math.sqrt((WIDTH/4)*(WIDTH/4) + (HEIGHT/4)*(HEIGHT/4));
+		//int backgroundSide = (int)Math.sqrt((WIDTH/4)*(WIDTH/4) + (HEIGHT/4)*(HEIGHT/4));
+		//int backgroundSide = 155;
+		int x = 134;
+		int y = 178;
+		//System.out.println(backgroundSide);
 		//System.out.println(backgroundSide);
 		//grad one of these
 		int counter = 0;
-		for(int i = 0; i < 4; i++) {
-			for(int j = 0; j < 4; j++) {
+		for(int i = 0; i < 5; i++) {
+			for(int j = 0; j < 6; j++) {
 				Image background = images.get(counter);
 				//give it a size large enough for background
-				background.setDimensions(new Pair<Integer, Integer>(backgroundSide,backgroundSide));
+				background.setDimensions(new Pair<Integer, Integer>(x,y));
 				//give it a random rotation (this is already set by the constructor for Image)
 				//place it in center
 //				int x = 0;
@@ -45,8 +50,7 @@ public class CollageGenerator {
 //				if(i > 1) {
 //					y = HEIGHT/2;
 //				}
-				
-				background.setPosition(new Pair<Integer, Integer>(WIDTH*((i+1)/4),HEIGHT*((j+1)/4))); //may need to change position
+				background.setPosition(new Pair<Integer, Integer>((int) ((double)WIDTH*((double)((double)(i-.2))/5)),(int) ((double)HEIGHT*(double)(((double)(j-.2))/(double)6)))); //may need to change position
 				//add it to collage
 				mCollage.addImage(background);
 				counter++;
@@ -54,18 +58,20 @@ public class CollageGenerator {
 			
 		}
 		//then loop through 26 times 
-		for(int i = 4; i < 30; i++){
-			Image tile = images.get(i);
-			//System.out.println((((WIDTH*HEIGHT*3)/2) - (4*(backgroundSide*backgroundSide))) / 26);
-			int tileSide = (int) Math.sqrt((((WIDTH*HEIGHT*3)/2) - (4*(backgroundSide*backgroundSide))) / 26);
-			tile.setDimensions(new Pair<Integer,Integer>(tileSide,tileSide));
-			
-			int x = ThreadLocalRandom.current().nextInt(0, WIDTH);
-			int y = ThreadLocalRandom.current().nextInt(0, HEIGHT);
-			tile.setPosition(new Pair<Integer, Integer>(x,y));
-			
-			mCollage.addImage(tile);
-		}
+//		for(int i = 16; i < 30; i++){
+//			Image tile = images.get(i);
+//			//System.out.println((((WIDTH*HEIGHT*3)/2) - (4*(backgroundSide*backgroundSide))) / 26);
+//			//int tileSide = (int) Math.sqrt((((WIDTH*HEIGHT*3)/2) - (16*(backgroundSide*backgroundSide))) / 14);
+//			int tileSide = 155;
+//			System.out.println((((WIDTH*HEIGHT*3)/2) - (16*(backgroundSide*backgroundSide))) / 14);
+//			tile.setDimensions(new Pair<Integer,Integer>(tileSide,tileSide));
+//			
+//			int x = ThreadLocalRandom.current().nextInt(0, WIDTH);
+//			int y = ThreadLocalRandom.current().nextInt(0, HEIGHT);
+//			tile.setPosition(new Pair<Integer, Integer>(x,y));
+//			
+//			mCollage.addImage(tile);
+//		}
 		//place all other images in random location within bounds
 		//give all images fixed size 
 		//give all images random rotation
@@ -86,6 +92,6 @@ public class CollageGenerator {
 	}
 	public static void main (String args[]) {
 		CollageGenerator cg = new CollageGenerator();
-		System.out.println(cg.buildCollage("cat"));
+		System.out.println(cg.buildCollage("bunny"));
 	}
 }

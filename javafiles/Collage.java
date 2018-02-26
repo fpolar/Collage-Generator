@@ -56,18 +56,37 @@ public class Collage extends Picture {
 	//downloads all of the images to memory
 	private ArrayList<BufferedImage> downloadImages() {
 		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
+		int index = 30;
+		boolean retry = false;
 		for (int i = 0; i < mImages.size(); i++) {
+			
 			BufferedImage image = null;
+			
 			try {
-			    URL url = new URL(mImages.get(i).getSource());
+				URL url = null;
+				if (retry) {
+					url = new URL(Fetcher.getNewURL(this.mName, index));
+					retry = false;
+				} else {
+					url = new URL(mImages.get(i).getSource());
+				}
+			    
 			    HttpURLConnection myconn = (HttpURLConnection) url.openConnection();
 			    myconn.addRequestProperty("User-Agent", "");
 			    image = ImageIO.read(myconn.getInputStream());
 			    //resizeImage(image, 10, 10);
-			    images.add(image);
+			    if (image != null) {
+			    	images.add(image);
+			    } else {
+			    	throw new IOException();
+			    }
+			    
 			   
 			} catch (IOException e) {
-				e.printStackTrace();
+				index++;
+				i--;
+				retry = true;
+				System.out.println("trying again");
 			}
 		}
 		return images;
@@ -97,7 +116,16 @@ public class Collage extends Picture {
 	    return rotatedImage;
 		
 	}
-	
+	private BufferedImage addBorder(BufferedImage image) {
+		int width = image.getWidth() + 6;
+		int height = image.getHeight() + 6;
+		BufferedImage newImage = new BufferedImage(width, height, image.getType()); 
+		Graphics2D g = newImage.createGraphics();  
+		g.setColor(Color.WHITE);
+	    g.fillRect(0, 0, width, height);
+	    g.drawImage(image,  3,  3,  null);
+	    return newImage;
+	}
 	//resizes images to their corresponding mImage size
 	private BufferedImage resizeImage(BufferedImage image, int newHeight, int newWidth) {
 		 int width = image.getWidth();  
@@ -128,6 +156,7 @@ public class Collage extends Picture {
 			double rotation = mImages.get(i).getRotation();
 			BufferedImage currentImage = images.get(i);
 			currentImage = this.resizeImage(currentImage, dimensions.getKey(), dimensions.getValue());
+			currentImage = this.addBorder(currentImage);
 			currentImage = this.rotateImage(currentImage, rotation);
 	        g.drawImage(currentImage ,position.getKey(), position.getValue(), null);
 	    }
