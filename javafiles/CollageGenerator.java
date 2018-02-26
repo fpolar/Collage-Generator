@@ -43,9 +43,4 @@ public class CollageGenerator {
 	private void placeImages (ArrayList<Image> images) {
 		
 	}
-	private void setRandomRotation(Image img) {
-		int rotation = ThreadLocalRandom.current().nextInt(MIN_ROTATION, MAX_ROTATION);
-		img.setRotation(rotation);
-		System.out.println(img.getRotation());
-	}
 }
