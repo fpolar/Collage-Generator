@@ -6,9 +6,9 @@ body, div, h1{
 #search-bar{
 	z-index: 2;
 	left: 35vw;
-	width: 30%;
+	width: 50%;
 	input{
-		width: 73%;
+		width: 50%;
 		margin: 0;
 		border: none;
 	}
@@ -16,8 +16,8 @@ body, div, h1{
 		border: none;
 		color: white;
 		background-color: darkgray;
-		margin-left: 2%;
-		width: 22.5%;
+		margin-left: 2.5%;
+		width: 20%;
 	}
 }
 #title, #collage, #prev-collage-container{
@@ -33,9 +33,11 @@ body, div, h1{
 		position: absolute;
 		top: 46vh;
 	}
-	#title, #collage, #prev-collage-container{
-		height: 0px;
+	#title, #collage, #prev-collage-container, #export{
 		opacity: 0;
+	}
+	#collage{
+		height: 0;
 	}
 }
 //use floating and margins instead of using absolute positioning 
@@ -43,7 +45,7 @@ body, div, h1{
 	background: white;
 	#search-bar{
 		position: absolute;
-		top: 80vh;
+		bottom: 20vh;
 	}
 	#title, #collage, #prev-collage-container{
 		opacity: 1;
@@ -54,12 +56,25 @@ body, div, h1{
 		width: 100%;
 	}
 	#prev-collage-container{
-		background-image: url("http://weknowmemes.com/generator/uploads/generated/g1329366229914525740.jpg");
-		background-size: contain;
-		top: 87vh;
+//		background-image: url("http://weknowmemes.com/generator/uploads/generated/g1329366229914525740.jpg");
+//		background-size: contain;
+		bottom: 13vh;
 		left: 10vw;
-		height: 8vh;
+		height: 15vh;
 		width: 80vw;
+		overflow: scroll;
+		div{
+			width: 10vw;
+			height: 100%;
+			float: left;
+			background-size: contain;
+			background-position: center;
+			background-repeat: no-repeat;
+			cursor: pointer;
+		}
+		.active{
+			display:none;
+		}
 	}
 	#collage{
 		background-size: cover;
