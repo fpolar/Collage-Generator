@@ -7,8 +7,8 @@ public abstract class Picture {
 	protected String mSource;
 
 	public Picture(String link, int width, int height) {
-		mSource = source;
-		mDimensions = new Pair(width, height);
+		mSource = link;
+		mDimensions = new Pair<Integer, Integer>(width, height);
 	}
 	public void setDimensions(Pair<Integer, Integer> dimensions) {
 		this.mDimensions = dimensions;

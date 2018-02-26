@@ -11,13 +11,16 @@ import javafx.util.Pair;
  *
  */
 public class Image extends Picture {
+	private static final int MIN_ROTATION = -45;
+	private static final int MAX_ROTATION = 46;
+	
 	private Pair<Integer, Integer> mPosition;
-	private double mRotation;
+	private int mRotation;
 	
 	public Image(String source, int width, int height) {
 		super(source, width, height);
-		mPosition = new Pair(0,0);
-		mRotation = setRandomRotation();
+		mPosition = new Pair<Integer, Integer>(0,0);
+		this.setRandomRotation();
 	}
 	public Pair<Integer, Integer> getPosition() {
 		return mPosition;
@@ -25,15 +28,13 @@ public class Image extends Picture {
 	public void setPosition(Pair<Integer, Integer> mPosition) {
 		this.mPosition = mPosition;
 	}
-	public double getRotation() {
+	public int getRotation() {
 		return mRotation;
 	}
-	public void setRotation(double mRotation) {
+	public void setRotation(int mRotation) {
 		this.mRotation = mRotation;
 	}
-	private void setRandomRotation() {
-		return ThreadLocalRandom.current().nextInt(MIN_ROTATION, MAX_ROTATION);
+	public void setRandomRotation() {
+		mRotation = ThreadLocalRandom.current().nextInt(MIN_ROTATION, MAX_ROTATION);
 	}
-	
-	
 }
