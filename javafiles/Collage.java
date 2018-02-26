@@ -14,8 +14,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -50,15 +52,18 @@ public class Collage extends Picture {
 	public String getName(){
 		return mName;
 	}
-	//converts the collage to a png, saves it to the server's HD, 
-	//and returns the string with the location
+	
+	//downloads all of the images to memory
 	private ArrayList<BufferedImage> downloadImages() {
 		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
-		for (int i = 0; i < NUM_IMAGES; i++) {
+		for (int i = 0; i < mImages.size(); i++) {
 			BufferedImage image = null;
 			try {
-			    URL url = new URL("https://cloud.netlifyusercontent.com/assets/344dbf88-fdf9-42bb-adb4-46f01eedd629/66a56988-2537-426f-b25b-149c7a720ac7/07-functions-opt.jpg");
-			    image = ImageIO.read(url);
+			    URL url = new URL(mImages.get(i).getSource());
+			    HttpURLConnection myconn = (HttpURLConnection) url.openConnection();
+			    myconn.addRequestProperty("User-Agent", "");
+			    image = ImageIO.read(myconn.getInputStream());
+			    //resizeImage(image, 10, 10);
 			    images.add(image);
 			   
 			} catch (IOException e) {
@@ -67,6 +72,8 @@ public class Collage extends Picture {
 		}
 		return images;
 	}
+	
+	//rotates images to their corresponding mImage angle
 	private BufferedImage rotateImage(BufferedImage originalImage, double degree) {
 		
 		int w = originalImage.getWidth();
@@ -79,25 +86,19 @@ public class Collage extends Picture {
 	    Graphics2D g = rotatedImage.createGraphics();
 	    g.setComposite(AlphaComposite.SrcOver.derive(0.0f));
 	    g.setColor(Color.WHITE);
-	    
 	    g.fillRect(0, 0, wPrime, hPrime);  // fill entire area
-//	    AffineTransform tx = new AffineTransform();
-//	    tx.translate(wPrime/2, hPrime/2);
-//	    tx.rotate(toRad, -w/2, -h/2);
-//
-//	    AffineTransformOp op = new AffineTransformOp(tx,
-//	        AffineTransformOp.TYPE_BILINEAR);
-//	    rotatedImage = op.filter(rotatedImage, null);
 	    g.translate(wPrime/2, hPrime/2);
 	    g.rotate(toRad);
 	    g.translate(-w/2, -h/2);
-	    g.setComposite(AlphaComposite.SrcOver.derive(0.8f));
+	    g.setComposite(AlphaComposite.SrcOver.derive(1f));
 	    g.drawImage(originalImage, 0, 0, null);
 	   
 	    g.dispose();  // release used resources before g is garbage-collected
 	    return rotatedImage;
 		
 	}
+	
+	//resizes images to their corresponding mImage size
 	private BufferedImage resizeImage(BufferedImage image, int newHeight, int newWidth) {
 		 int width = image.getWidth();  
 		 int height = image.getHeight();  
@@ -108,13 +109,19 @@ public class Collage extends Picture {
 		 g.dispose();  
 		 return newImage;
 	}
+	
+	//converts the collage to a png, saves it to the server's HD, 
+	//and returns the string with the location
+
 	public String convertToPng() {
+		//find old images with same names and delete them
 		ArrayList<BufferedImage> images = this.downloadImages();
 		BufferedImage result = new BufferedImage(
                 800, 600, //work these out
                 BufferedImage.TYPE_INT_ARGB);
 		Graphics g = result.getGraphics();
 		for (int i = 0; i < mImages.size(); i++) {
+			
 	        //BufferedImage bi = ImageIO.read(new File(image));
 			Pair<Integer, Integer> dimensions = mImages.get(i).getDimensions();
 			Pair<Integer, Integer> position = mImages.get(i).getPosition();
@@ -136,20 +143,20 @@ public class Collage extends Picture {
 	    
 		return "Collage"+ id + ".png";
 	}
-	public static void main(String [] args) {
-		Collage c = new Collage("", 800, 600);
-		for (int i = 0; i < 2; i++) {
-			Image image = new Image("", 100, 100);
-			Pair<Integer, Integer> position = new Pair<Integer,Integer>((i+1)*100, (i+1)*100);
-			image.setPosition(position);
-			int rotation = ThreadLocalRandom.current().nextInt(-45, 46);
-			image.setRotation(rotation);
-			c.addImage(image);
-		}
-		
-		c.convertToPng();
-		System.out.println("Success!");
-		
-	}
+//	public static void main(String [] args) {
+//		Collage c = new Collage("", 800, 600);
+//		for (int i = 0; i < 30; i++) {
+//			Image image = new Image("", 100, 100);
+//			Pair<Integer, Integer> position = new Pair<Integer,Integer>((i+1)*10, (i+1)*10);
+//			image.setPosition(position);
+//			int rotation = ThreadLocalRandom.current().nextInt(-45, 46);
+//			image.setRotation(rotation);
+//			c.addImage(image);
+//		}
+//		
+//		c.convertToPng();
+//		System.out.println("Success!");
+//		
+//	}
 	
 }
