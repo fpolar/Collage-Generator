@@ -92,6 +92,6 @@ public class CollageGenerator {
 	}
 	public static void main (String args[]) {
 		CollageGenerator cg = new CollageGenerator();
-		System.out.println(cg.buildCollage("bunny"));
+		System.out.println(cg.buildCollage("puppy"));
 	}
 }
