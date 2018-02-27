@@ -30,6 +30,7 @@ public class Collage extends Picture {
 	private static final int NUM_IMAGES = 30;
 	private String mName;
 	private static int id = 0;
+	private ArrayList<String> extraImages;
 	
 	public Collage(String link, int width, int height) {
 		super(link, width, height);
@@ -45,9 +46,13 @@ public class Collage extends Picture {
 	public void addImage(Image image) {
 		mImages.add(image);
 	}
+	public void addBackground(Image image) {
+		mImages.add(0, image);
+	}
 	
 	public void setName(String name) {
 		this.mName = name;
+		extraImages = Fetcher.extraImages(name);
 	}
 	public String getName(){
 		return mName;
@@ -56,7 +61,7 @@ public class Collage extends Picture {
 	//downloads all of the images to memory
 	private ArrayList<BufferedImage> downloadImages() {
 		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
-		int index = 30;
+		int index = 0;
 		boolean retry = false;
 		for (int i = 0; i < mImages.size(); i++) {
 			
@@ -65,7 +70,7 @@ public class Collage extends Picture {
 			try {
 				URL url = null;
 				if (retry) {
-					url = new URL(Fetcher.getNewURL(this.mName, index));
+					url = new URL(extraImages.get(index));
 					retry = false;
 				} else {
 					url = new URL(mImages.get(i).getSource());
