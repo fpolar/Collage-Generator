@@ -47,9 +47,11 @@ function repositionElements(){
  
 function addCollage(collageObj){
 	activeCollage = collages.length;
+	$(".active").removeClass("active");
 	if(!collageObj.src.includes("Enough")){
 		$("#prev-collage-container").append("<div id='collage"+activeCollage+"' class='active' 	title='"+collageObj.name+"')'></div>");
-	}	$("#collage"+activeCollage).css("backgroundImage","url("+collageObj.src+")")
+	}
+	$("#collage"+activeCollage).css("backgroundImage","url("+collageObj.src+")")
 	$("#download-button").attr("href", collageObj.src);
     collages.push(collageObj);
 }
