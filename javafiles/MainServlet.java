@@ -35,16 +35,19 @@ public class MainServlet extends HttpServlet {
         mPath = path;
     }
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		System.out.println("Entered main function");
 		PrintWriter out = response.getWriter();
 		String query = request.getParameter("query");
-		
 		CollageGenerator generator = new CollageGenerator();
 		String collage = generator.buildCollage(query, mPath);
-		out.println("{\"src\": \"" + collage + "\"}");
+		if (!collage.equals("ERROR")) {
+			out.println("{\"src\": \"" + collage + "\"}");
+		} else {
+			out.println("{\"src\": \"images/NotEnoughImages.png\"}");
+		}
 		
-		System.out.println(mPath);
+		
+	
 	}
 
 

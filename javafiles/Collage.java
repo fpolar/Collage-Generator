@@ -27,38 +27,66 @@ import javafx.util.Pair;
 
 public class Collage extends Picture {
 	private ArrayList<Image> mImages;
-	private static final int NUM_IMAGES = 30;
+	private static final int WIDTH = 800;
+	private static final int HEIGHT = 600;
+	private static final int BORDER_SIZE = 3;
 	private String mName;
 	private static int id = 0;
 	private ArrayList<String> extraImages;
 	
+	
+	/**
+	 * Class defines a single Collage, with contains all of the images
+	 */
 	public Collage(String link, int width, int height) {
 		super(link, width, height);
 		mImages = new ArrayList<Image>();
 	}
+	
+	/**
+	 * Return Images in the Collage
+	 * @return the array of images
+	 */
 	public ArrayList<Image> getImages() {
 		return mImages;
 	}
 
+	/**
+	 * Set the images in the collage
+	 *  @param mImages The list of images
+	 */
 	public void setImages(ArrayList<Image> mImages) {
 		this.mImages = mImages;
 	}
+	
+	/**
+	 * Add an image to the collage
+	 *  @param image The image to add
+	 */
 	public void addImage(Image image) {
 		mImages.add(image);
 	}
-	public void addBackground(Image image) {
-		mImages.add(0, image);
-	}
 	
+	/**
+	 * Set the name of the collage
+	 *  @param name The name of the collage
+	 */
 	public void setName(String name) {
 		this.mName = name;
 		extraImages = Fetcher.extraImages(name);
 	}
+	
+	/**
+	 * Set the name of the collage
+	 *  @return the name of the collage
+	 */
 	public String getName(){
 		return mName;
 	}
-	
-	//downloads all of the images to memory
+	/**
+	 * Download the images for the collage
+	 *  @return the array of images
+	 */
 	private ArrayList<BufferedImage> downloadImages() {
 		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
 		int index = 0;
@@ -101,42 +129,57 @@ public class Collage extends Picture {
 		}
 		return images;
 	}
-	
-	//rotates images to their corresponding mImage angle
+	/**
+	 * Rotates the image to its given angle
+	 * @param originalImage The image to be rotated
+	 * @param degree The degree to which to rotate the image
+	 * @return the rotated image
+	 */
 	private BufferedImage rotateImage(BufferedImage originalImage, double degree) {
 		
-		int w = originalImage.getWidth();
-	    int h = originalImage.getHeight();
+		int width = originalImage.getWidth();
+	    int height = originalImage.getHeight();
 	    double toRad = Math.toRadians(degree);
-	    int hPrime = (int) (w * Math.abs(Math.sin(toRad)) + h * Math.abs(Math.cos(toRad)));
-	    int wPrime = (int) (h * Math.abs(Math.sin(toRad)) + w * Math.abs(Math.cos(toRad)));
+	    int heightPrime = (int) (width * Math.abs(Math.sin(toRad)) + height * Math.abs(Math.cos(toRad)));
+	    int widthPrime = (int) (height * Math.abs(Math.sin(toRad)) + width * Math.abs(Math.cos(toRad)));
 
-	    BufferedImage rotatedImage = new BufferedImage(wPrime, hPrime, BufferedImage.TYPE_INT_ARGB);
+	    BufferedImage rotatedImage = new BufferedImage(widthPrime, heightPrime, BufferedImage.TYPE_INT_ARGB);
 	    Graphics2D g = rotatedImage.createGraphics();
 	    g.setComposite(AlphaComposite.SrcOver.derive(0.0f));
 	    g.setColor(Color.WHITE);
-	    g.fillRect(0, 0, wPrime, hPrime);  // fill entire area
-	    g.translate(wPrime/2, hPrime/2);
+	    g.fillRect(0, 0, widthPrime, heightPrime);
+	    g.translate(widthPrime/2, heightPrime/2);
 	    g.rotate(toRad);
-	    g.translate(-w/2, -h/2);
+	    g.translate(-width/2, -height/2);
 	    g.setComposite(AlphaComposite.SrcOver.derive(1f));
 	    g.drawImage(originalImage, 0, 0, null);
 	   
-	    g.dispose();  // release used resources before g is garbage-collected
+	    g.dispose();
 	    return rotatedImage;
 		
 	}
+	/**
+	 * Adds a white border to the image
+	 * @param image The image to add the border to
+	 * @return the image with the border
+	 */
 	private BufferedImage addBorder(BufferedImage image) {
-		int width = image.getWidth() + 6;
-		int height = image.getHeight() + 6;
+		int width = image.getWidth() + 2*BORDER_SIZE;
+		int height = image.getHeight() + 2*BORDER_SIZE;
 		BufferedImage newImage = new BufferedImage(width, height, image.getType()); 
 		Graphics2D g = newImage.createGraphics();  
 		g.setColor(Color.WHITE);
 	    g.fillRect(0, 0, width, height);
-	    g.drawImage(image,  3,  3,  null);
+	    g.drawImage(image,  BORDER_SIZE,  BORDER_SIZE,  null);
 	    return newImage;
 	}
-	//resizes images to their corresponding mImage size
+	/**
+	 * Resizes the image to its given new height and width
+	 * @param image The image to be resized
+	 * @param newHeight the new height of the image
+	 * @param newWidth the new width of the image
+	 * @return the resized image
+	 */
 	private BufferedImage resizeImage(BufferedImage image, int newHeight, int newWidth) {
 		 int width = image.getWidth();  
 		 int height = image.getHeight();  
@@ -150,12 +193,16 @@ public class Collage extends Picture {
 	
 	//converts the collage to a png, saves it to the server's HD, 
 	//and returns the string with the location
-
+	/**
+	 * Converts the collage to a png and saves it to the server
+	 * @param mPath The location on disk to save the image to
+	 * @return the name of the image
+	 */
 	public String convertToPng(String mPath) {
 		//find old images with same names and delete them
 		ArrayList<BufferedImage> images = this.downloadImages();
 		BufferedImage result = new BufferedImage(
-                800, 600, //work these out
+                WIDTH, HEIGHT,
                 BufferedImage.TYPE_INT_ARGB);
 		Graphics g = result.getGraphics();
 		for (int i = 0; i < mImages.size(); i++) {
@@ -185,20 +232,5 @@ public class Collage extends Picture {
 	    
 		return "Collage"+ id + ".png";
 	}
-//	public static void main(String [] args) {
-//		Collage c = new Collage("", 800, 600);
-//		for (int i = 0; i < 30; i++) {
-//			Image image = new Image("", 100, 100);
-//			Pair<Integer, Integer> position = new Pair<Integer,Integer>((i+1)*10, (i+1)*10);
-//			image.setPosition(position);
-//			int rotation = ThreadLocalRandom.current().nextInt(-45, 46);
-//			image.setRotation(rotation);
-//			c.addImage(image);
-//		}
-//		
-//		c.convertToPng();
-//		System.out.println("Success!");
-//		
-//	}
 	
 }
