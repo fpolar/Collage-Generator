@@ -14,7 +14,7 @@ public class CollageGenerator {
 	private static final int WIDTH = 800;
 	private static final int HEIGHT = 600;
 	//width and height for indiviual images in the collage 
-	private static final int SMALL_WIDTH = 178;
+	private static final int SMALL_WIDTH = 179;
 	private static final int SMALL_HEIGHT = 134;
 	
 	private Collage mCollage;
