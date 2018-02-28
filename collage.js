@@ -47,8 +47,9 @@ function repositionElements(){
  
 function addCollage(collageObj){
 	activeCollage = collages.length;
-	$("#prev-collage-container").append("<div id='collage"+activeCollage+"' class='active' title='"+collageObj.name+"')'></div>");
-	$("#collage"+activeCollage).css("backgroundImage","url("+collageObj.src+")")
+	if(collageObj.src !== "notEnoughCollages.png"){
+		$("#prev-collage-container").append("<div id='collage"+activeCollage+"' class='active' 	title='"+collageObj.name+"')'></div>");
+	}	$("#collage"+activeCollage).css("backgroundImage","url("+collageObj.src+")")
 	$("#download-button").attr("href", collageObj.src);
     collages.push(collageObj);
 }
@@ -72,9 +73,12 @@ $("#prev-collage-container").on("click", "div", function(){
 
 //changes the cursor on the search button to imply it cannot
 //be clicked if the search terms are empty
-$("input").keyup(function(){
+$("input").keyup(function(e){
 	//if after any key is hit in the input box
 	//the box has no text, no pointer
+    if (e.keyCode == 13 && $(this).val()!=="") {
+		handleSearchButtonClick();
+    }
 	if($(this).val()===""){
 		$("button").hover(function(){
     		$(this).css("cursor", "default");
@@ -121,8 +125,7 @@ function makeRequest(queryString) { // Make request to Servelet
 	})
 	obj = {
     	      "src": thisData.src,
-    	      "name": queryString,
-    	      "isActive": false // if it will show up in the timeline
+    	      "name": queryString
 	};
 	return obj;
 	
