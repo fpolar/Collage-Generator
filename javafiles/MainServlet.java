@@ -39,12 +39,18 @@ public class MainServlet extends HttpServlet {
 		System.out.println("Entered main function");
 		PrintWriter out = response.getWriter();
 		String query = request.getParameter("query");
-		
 		CollageGenerator generator = new CollageGenerator();
 		String collage = generator.buildCollage(query, mPath);
-		out.println("{\"src\": \"" + collage + "\"}");
+		if (collage.equals("ERROR")) {
+			out.println("{\"src\": \"" + collage + "\", "
+					+ "\"error\": \"true\"}");
+		} else {
+			out.println("{\"src\": \"" + collage + "\", "
+					+ "\"error\": \"false\"}");
+		}
 		
-		System.out.println(mPath);
+		
+	
 	}
 
 
