@@ -40,7 +40,7 @@ public class MainServlet extends HttpServlet {
 		String query = request.getParameter("query");
 		CollageGenerator generator = new CollageGenerator();
 		String collage = generator.buildCollage(query, mPath);
-		if (collage.equals("ERROR")) {
+		if (!collage.equals("ERROR")) {
 			out.println("{\"src\": \"" + collage + "\"}");
 		} else {
 			out.println("{\"src\": \"images/NotEnoughImages.png\"}");
