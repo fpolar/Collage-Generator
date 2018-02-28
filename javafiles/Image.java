@@ -1,5 +1,7 @@
 package DataContainers;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 import javafx.util.Pair;
 
 /**
@@ -13,6 +15,8 @@ public class Image extends Picture {
 	private Pair<Integer, Integer> mPosition;
 	//rotation angle (degrees) of Image in Collage
 	private int mRotation;
+	private static final int MIN_ROTATION = -45;
+	private static final int MAX_ROTATION = 46;
 	
 	/**
 	 * Constructs an Image object with a source, width, and height.
@@ -23,7 +27,7 @@ public class Image extends Picture {
 	public Image(String source, int width, int height) {
 		super(source, width, height);
 		mPosition = new Pair<Integer, Integer>(0,0);
-		mRotation = 0;
+		this.setRandomRotation();
 	}
 	
 	/**
@@ -56,5 +60,11 @@ public class Image extends Picture {
 	 */
 	public void setRotation(int mRotation) {
 		this.mRotation = mRotation;
+	}
+	/**
+	 * Set the rotation angle of the Image in the Collage to a random number
+	 */
+	public void setRandomRotation() {
+		mRotation = ThreadLocalRandom.current().nextInt(MIN_ROTATION, MAX_ROTATION);
 	}
 }

@@ -55,4 +55,5 @@ public class Picture {
 	public String getSource() {
 		return mSource;
 	}
+	
 }
