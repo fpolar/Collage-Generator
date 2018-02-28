@@ -35,7 +35,6 @@ public class MainServlet extends HttpServlet {
         mPath = path;
     }
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		System.out.println("Entered main function");
 		PrintWriter out = response.getWriter();
 		String query = request.getParameter("query");
@@ -44,7 +43,7 @@ public class MainServlet extends HttpServlet {
 		if (collage.equals("ERROR")) {
 			out.println("{\"src\": \"" + collage + "\"}");
 		} else {
-			out.println("{\"src\": \"notEnoughImages.png\"}");
+			out.println("{\"src\": \"images/NotEnoughImages.png\"}");
 		}
 		
 		
