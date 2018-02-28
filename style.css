@@ -9,8 +9,18 @@ body, div, h1 {
   width: 50%; }
   #search-bar input {
     width: 50%;
-    margin: 0;
-    border: none; }
+    margin: 0; }
+    #search-bar input::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: lightgray;
+      opacity: 1;
+      /* Firefox */ }
+    #search-bar input:-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: lightgray; }
+    #search-bar input::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: lightgray; }
   #search-bar button {
     border: none;
     color: white;
@@ -62,7 +72,7 @@ body, div, h1 {
       background-repeat: no-repeat;
       cursor: pointer; }
     .activated #prev-collage-container .active {
-       }
+      display: none; }
   .activated #collage {
     background-size: cover;
     background-position: center;

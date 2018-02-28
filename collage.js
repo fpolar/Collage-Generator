@@ -47,7 +47,7 @@ function repositionElements(){
  
 function addCollage(collageObj){
 	activeCollage = collages.length;
-	if(collageObj.src !== "notEnoughCollages.png"){
+	if(collageObj.src.includes("Collage")){
 		$("#prev-collage-container").append("<div id='collage"+activeCollage+"' class='active' 	title='"+collageObj.name+"')'></div>");
 	}	$("#collage"+activeCollage).css("backgroundImage","url("+collageObj.src+")")
 	$("#download-button").attr("href", collageObj.src);
