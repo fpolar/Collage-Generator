@@ -4,7 +4,7 @@ var activeCollage = -1;
 var url = "CollageServlet?";
 
 $(document).ready(function() {
-	//fillCollagesArrayTest(10);
+//	fillCollagesArrayTest(10);
 	$("#search").click(function(){
     	handleSearchButtonClick();
   	});
@@ -47,7 +47,7 @@ function repositionElements(){
  
 function addCollage(collageObj){
 	activeCollage = collages.length;
-	if(collageObj.src.includes("Collage")){
+	if(!collageObj.src.includes("Enough")){
 		$("#prev-collage-container").append("<div id='collage"+activeCollage+"' class='active' 	title='"+collageObj.name+"')'></div>");
 	}	$("#collage"+activeCollage).css("backgroundImage","url("+collageObj.src+")")
 	$("#download-button").attr("href", collageObj.src);
