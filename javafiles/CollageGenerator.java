@@ -16,7 +16,7 @@ public class CollageGenerator {
 	//width and height for indiviual images in the collage 
 	private static final int SMALL_WIDTH = 179;
 	private static final int SMALL_HEIGHT = 134;
-	
+	private ArrayList<Image> images;
 	private Collage mCollage;
 	
 	/**
@@ -24,8 +24,11 @@ public class CollageGenerator {
 	 */
 	public CollageGenerator() {
 		this.mCollage = new Collage("",WIDTH, HEIGHT);
+		this.images = new ArrayList<Image>();
 	}
-	
+	public ArrayList<Image> getImages() {
+		return this.images;
+	}
 	/**
 	 * Retrieves and manipulates images to be placed into the collage by
 	 * the Collage class. This function adjust the size, rotation angle,
@@ -35,12 +38,17 @@ public class CollageGenerator {
 	 * @return Path to collage of 30 images
 	 * @return "ERROR" if insufficeint images are found
 	 */
-	public String buildCollage(String query, String mPath) {
+	public String buildCollage(String query, String mPath, ArrayList<Image> images) {
 		//set the name of the Collage to what was searched
 		this.mCollage.setName(query);
 		
 		//retrieve images from Google API
-		ArrayList<Image> images = Fetcher.getImageList(query);
+		if (images != null) {
+			this.images = images;
+		} else {
+			images = Fetcher.getImageList(query);
+		}
+		
 		
 		//check if insufficient images found
 		if(images.size() < 30) {
