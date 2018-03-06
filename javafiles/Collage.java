@@ -5,21 +5,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 import javax.imageio.ImageIO;
 
@@ -41,22 +32,6 @@ public class Collage extends Picture {
 	public Collage(String link, int width, int height) {
 		super(link, width, height);
 		mImages = new ArrayList<Image>();
-	}
-	
-	/**
-	 * Return Images in the Collage
-	 * @return the array of images
-	 */
-	public ArrayList<Image> getImages() {
-		return mImages;
-	}
-
-	/**
-	 * Set the images in the collage
-	 *  @param mImages The list of images
-	 */
-	public void setImages(ArrayList<Image> mImages) {
-		this.mImages = mImages;
 	}
 	
 	/**
@@ -121,12 +96,7 @@ public class Collage extends Picture {
 				i--;
 				retry = true;
 				System.out.println("trying again");
-			} catch (Exception e) {
-				index++;
-				i--;
-				retry = true;
-				System.out.println("trying again");
-			}
+			} 
 		}
 		return images;
 	}

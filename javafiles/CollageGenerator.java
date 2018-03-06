@@ -1,7 +1,6 @@
 package DataContainers;
 
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 import javafx.util.Pair;
 /**
@@ -75,6 +74,5 @@ public class CollageGenerator {
 		//return the path to where the collage should be constructed
 		return mCollage.convertToPng(mPath);
 	}
-	
 	
 }
