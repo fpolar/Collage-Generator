@@ -44,7 +44,7 @@ public class MainServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		CollageGenerator generator = new CollageGenerator();
 		String collage = "";
-		if (session.getAttribute("link") != null && testMode) {
+		if (session.getAttribute("images") != null && testMode) {
 			System.out.println("Reusing previous images");
 			ArrayList<Image> images = (ArrayList<Image>) session.getAttribute("images");
 			collage = generator.buildCollage(query, mPath, images);

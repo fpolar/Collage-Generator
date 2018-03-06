@@ -46,12 +46,12 @@ public class CollageGenerator {
 		if (images != null) {
 			this.images = images;
 		} else {
-			images = Fetcher.getImageList(query);
+			this.images = Fetcher.getImageList(query);
 		}
 		
 		
 		//check if insufficient images found
-		if(images.size() < 30) {
+		if(this.images.size() < 30) {
 			return "ERROR";
 		}
 		int height = SMALL_HEIGHT;
@@ -61,7 +61,7 @@ public class CollageGenerator {
 		int counter = 0;
 		for(int i = 0; i < 5; i++) {
 			for(int j = 0; j < 6; j++) {
-				Image currentImage = images.get(counter);
+				Image currentImage = this.images.get(counter);
 				//give it its dimensions
 				currentImage.setDimensions(new Pair<Integer, Integer>(width,height));
 				//give it an appropriate position

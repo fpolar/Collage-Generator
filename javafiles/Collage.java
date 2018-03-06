@@ -73,7 +73,8 @@ public class Collage extends Picture {
 	 */
 	public void setName(String name) {
 		this.mName = name;
-		extraImages = Fetcher.extraImages(name);
+		//Uncomment this when running normally, comment out for testing purposes
+		//extraImages = Fetcher.extraImages(name); 
 	}
 	
 	/**
