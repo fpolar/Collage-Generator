@@ -91,7 +91,7 @@ public class Collage extends Picture {
 			    }
 			    
 			   
-			} catch (IOException e) {
+			} catch (Exception e) {
 				index++;
 				i--;
 				retry = true;
