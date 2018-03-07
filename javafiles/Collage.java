@@ -14,8 +14,6 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import javafx.util.Pair;
-
 public class Collage extends Picture {
 	private ArrayList<Image> mImages;
 	private static final int WIDTH = 800;

@@ -2,7 +2,6 @@ package DataContainers;
 
 import java.util.ArrayList;
 
-import javafx.util.Pair;
 /**
  * Initializes Images to be constructed into a Collage.
  * @author leighrubin

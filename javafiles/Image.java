@@ -2,8 +2,6 @@ package DataContainers;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import javafx.util.Pair;
-
 /**
  * Class defines a single Image, which is an entity of a Collage, that
  * is defined by a position and a rotation angle.

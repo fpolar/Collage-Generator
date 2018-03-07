@@ -1,6 +1,5 @@
 package DataContainers;
 
-import javafx.util.Pair;
 
 /**
  * Class defines a Picture object
