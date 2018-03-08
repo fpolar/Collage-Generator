@@ -8,3 +8,13 @@ Background:
 
 Scenario: User Visits the Welcome Page
 	Then the background should be light-gray
+
+Scenario: User Visits the welcome page
+	Then the input box should have a dark-gray outline
+
+Scenario: User Visits the welcome page
+	Then the input box is centered in the middle of the screen
+
+Scenario: User Visits the Welcome Page
+	Then the input box has prompt text "Enter Topic"
+	And the prompt text is in a light gray color
