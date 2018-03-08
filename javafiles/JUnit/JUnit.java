@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.*;
 import DataContainers.*;
 
@@ -22,19 +23,10 @@ public class JUnit {
 	 CollageGenerator cg = new CollageGenerator();
 	 public static int counter = 0;
 	 Collage collage;
-	 ArrayList<Image> images = Fetcher.getImageList("puppy");
-	 ArrayList<String> extraImages = Fetcher.extraImages("puppy");
+	 ArrayList<Image> images = Fetcher.getImageList("birds");
+	 ArrayList<String> extraImages = Fetcher.extraImages("birds");
 	    
 	 
-	 @Mock
-	 HttpServletRequest req;
-	 @Mock
-	 HttpServletResponse res;
-	 @Mock
-	 HttpSession session;
-
-
-	
 
 	 @Before
 	 public void setUp() throws Exception {
@@ -75,8 +67,6 @@ public class JUnit {
 	   
 	   @Test(expected = NullPointerException.class)
 	   public void testFetcherInvalidUrlExtraImages() {
-		   Fectcher test = new Fetcher();
-		   
 	       String longString = "";
 	       for(int i = 0; i < 10000; i++) {
 	           longString = longString.concat("a");
@@ -223,12 +213,14 @@ public class JUnit {
 	       HttpServletRequest req = Mockito.mock(HttpServletRequest.class);
 	       HttpServletResponse resp = Mockito.mock(HttpServletResponse.class);
 	       HttpSession session = Mockito.mock(HttpSession.class);
+	       ServletContext context = Mockito.mock(ServletContext.class);
 	       
 	       Mockito.when(req.getParameter("query")).thenReturn("puppy");
 	       StringWriter stringWriter = new StringWriter();
 	       PrintWriter writer = new PrintWriter(stringWriter);
 	       Mockito.when(resp.getWriter()).thenReturn(writer);
 	       Mockito.when(req.getSession()).thenReturn(session);
+	       Mockito.when(session.getServletContext()).thenReturn(context);
 	       new MainServlet().service(req, resp);
 	       Mockito.verify(req, Mockito.atLeast(1)).getParameter("query"); // only if you want to verify username was called...
 	       writer.flush(); // it may not have been flushed yet...
@@ -241,11 +233,14 @@ public class JUnit {
 	       HttpServletRequest req = Mockito.mock(HttpServletRequest.class);
 	       HttpServletResponse resp = Mockito.mock(HttpServletResponse.class);
 	       HttpSession session = Mockito.mock(HttpSession.class);
+	       ServletContext context = Mockito.mock(ServletContext.class);
+
 	       Mockito.when(req.getParameter("query")).thenReturn("fasdfasdfasdgas");
 	       StringWriter stringWriter = new StringWriter();
 	       PrintWriter writer = new PrintWriter(stringWriter);
 	       Mockito.when(resp.getWriter()).thenReturn(writer);
 	       Mockito.when(req.getSession()).thenReturn(session);
+	       Mockito.when(session.getServletContext()).thenReturn(context);
 	       new MainServlet().service(req, resp);
 	       Mockito.verify(req, Mockito.atLeast(1)).getParameter("query");
 	       writer.flush();
@@ -307,7 +302,7 @@ public class JUnit {
 	 }
 	 @Test
 	 public void checkDownload() {
-		 cg.buildCollage("puppies", "", null);
+		 cg.buildCollage("birds", "", null);
 		 collage = cg.getCollage();
 
 		 ArrayList<BufferedImage> testImages = collage.downloadImages();
@@ -315,7 +310,7 @@ public class JUnit {
 	 }
 	 @Test 
 	 public void checkDownloadNotNull() {
-		 cg.buildCollage("puppies", "", null);
+		 cg.buildCollage("birds", "", null);
 		 collage = cg.getCollage();
 
 		 ArrayList<BufferedImage> testImages = collage.downloadImages();
