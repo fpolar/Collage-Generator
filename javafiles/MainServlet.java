@@ -31,7 +31,7 @@ public class MainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = getServletContext().getRealPath("WEB-INF/../");
+		String path = request.getSession().getServletContext().getRealPath("WEB-INF/../");
         mPath = path;
 		System.out.println("Entered main function");
 		PrintWriter out = response.getWriter();
