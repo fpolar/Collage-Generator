@@ -75,6 +75,8 @@ public class JUnit {
 	   
 	   @Test(expected = NullPointerException.class)
 	   public void testFetcherInvalidUrlExtraImages() {
+		   Fectcher test = new Fetcher();
+		   
 	       String longString = "";
 	       for(int i = 0; i < 10000; i++) {
 	           longString = longString.concat("a");
