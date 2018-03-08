@@ -73,5 +73,8 @@ public class CollageGenerator {
 		//return the path to where the collage should be constructed
 		return mCollage.convertToPng(mPath);
 	}
+	public Collage getCollage() {
+		return this.mCollage;
+	}
 	
 }

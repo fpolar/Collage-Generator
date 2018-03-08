@@ -8,13 +8,13 @@ import java.util.Set;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
 
 // Pair class
-class Pair<U, V>
+public class Pair<U, V>
 {
 	public final U first;   	// first field of a Pair
 	public final V second;  	// second field of a Pair
 
 	// Constructs a new Pair with specified values
-	Pair(U first, V second)
+	public Pair(U first, V second)
 	{
 		this.first = first;
 		this.second = second;

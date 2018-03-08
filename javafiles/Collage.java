@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-
+import JUnit.*;
 import javax.imageio.ImageIO;
 
 public class Collage extends Picture {
@@ -23,7 +23,15 @@ public class Collage extends Picture {
 	private static int id = 0;
 	private ArrayList<String> extraImages;
 	
+	//used for testing purposes only
+	public BufferedImage testImage;
+	//used for testing purposes only
+	public String testPath;
 	
+	//used for testing purposes only
+	public ArrayList<Image> getImages() {
+		return this.mImages;
+	}
 	/**
 	 * Class defines a single Collage, with contains all of the images
 	 */
@@ -47,7 +55,7 @@ public class Collage extends Picture {
 	public void setName(String name) {
 		this.mName = name;
 		//Uncomment this when running normally, comment out for testing purposes
-		//extraImages = Fetcher.extraImages(name); 
+		extraImages = Fetcher.extraImages(name); 
 	}
 	
 	/**
@@ -61,7 +69,7 @@ public class Collage extends Picture {
 	 * Download the images for the collage
 	 *  @return the array of images
 	 */
-	private ArrayList<BufferedImage> downloadImages() {
+	public ArrayList<BufferedImage> downloadImages() {
 		ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
 		int index = 0;
 		boolean retry = false;
@@ -104,7 +112,7 @@ public class Collage extends Picture {
 	 * @param degree The degree to which to rotate the image
 	 * @return the rotated image
 	 */
-	private BufferedImage rotateImage(BufferedImage originalImage, double degree) {
+	public BufferedImage rotateImage(BufferedImage originalImage, double degree) {
 		
 		int width = originalImage.getWidth();
 	    int height = originalImage.getHeight();
@@ -132,7 +140,7 @@ public class Collage extends Picture {
 	 * @param image The image to add the border to
 	 * @return the image with the border
 	 */
-	private BufferedImage addBorder(BufferedImage image) {
+	public BufferedImage addBorder(BufferedImage image) {
 		int width = image.getWidth() + 2*BORDER_SIZE;
 		int height = image.getHeight() + 2*BORDER_SIZE;
 		BufferedImage newImage = new BufferedImage(width, height, image.getType()); 
@@ -149,7 +157,7 @@ public class Collage extends Picture {
 	 * @param newWidth the new width of the image
 	 * @return the resized image
 	 */
-	private BufferedImage resizeImage(BufferedImage image, int newHeight, int newWidth) {
+	public BufferedImage resizeImage(BufferedImage image, int newHeight, int newWidth) {
 		 int width = image.getWidth();  
 		 int height = image.getHeight();  
 		 BufferedImage newImage = new BufferedImage(newWidth, newHeight, image.getType()); 
@@ -170,6 +178,7 @@ public class Collage extends Picture {
 	public String convertToPng(String mPath) {
 		//find old images with same names and delete them
 		ArrayList<BufferedImage> images = this.downloadImages();
+		testImage = images.get(0);
 		BufferedImage result = new BufferedImage(
                 WIDTH, HEIGHT,
                 BufferedImage.TYPE_INT_ARGB);
@@ -187,15 +196,15 @@ public class Collage extends Picture {
 	        g.drawImage(currentImage ,position.getKey(), position.getValue(), null);
 	    }
 		Collage.id++;
-		
+		JUnit.counter++;
 		File file = new File(mPath + "Collage"+ id + ".png");
 	    try {
 	    	
 			ImageIO.write(result, "png", file);
-
+			
 			System.out.println("File write complete! Saved to: "+ file.getAbsolutePath());
+			testPath = file.getAbsolutePath();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    
