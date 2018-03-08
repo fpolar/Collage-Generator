@@ -1,0 +1,86 @@
+/* SCSS Document */
+body, div, h1 {
+  margin: 0;
+  transition: left .5s ease-in-out, top .5s ease-in-out, height .5s ease-in-out, opacity .5s ease-in-out; }
+
+#search-bar {
+  z-index: 2;
+  left: 25vw;
+  width: 50%; }
+  #search-bar input {
+    width: 50%;
+    margin: 0; }
+    #search-bar input::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: lightgray;
+      opacity: 1;
+      /* Firefox */ }
+    #search-bar input:-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: lightgray; }
+    #search-bar input::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: lightgray; }
+  #search-bar button {
+    border: none;
+    color: white;
+    background-color: darkgray;
+    margin-left: 2.5%;
+    width: 20%; }
+
+#title, #collage, #prev-collage-container {
+  text-align: center;
+  opacity: 0;
+  position: absolute;
+  color: black; }
+
+.default {
+  background: lightgrey;
+  transition: background-color .5s ease-in-out; }
+  .default #search-bar {
+    position: absolute;
+    top: 46vh;
+    left: 37.5vw; }
+  .default #title, .default #collage, .default #prev-collage-container, .default #export {
+    opacity: 0; }
+  .default #collage {
+    height: 0; }
+
+.activated {
+  background: white; }
+  .activated #search-bar {
+    position: absolute;
+    bottom: 20vh; }
+  .activated #title, .activated #collage, .activated #prev-collage-container {
+    opacity: 1; }
+  .activated #title {
+    top: 5vh;
+    height: 7.5vh;
+    width: 100%; }
+  .activated #prev-collage-container {
+    bottom: 13vh;
+    left: 10vw;
+    height: 15vh;
+    width: 80vw;
+    overflow: scroll; }
+    .activated #prev-collage-container div {
+      width: 10vw;
+      height: 100%;
+      float: left;
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      cursor: pointer; }
+    .activated #prev-collage-container .active {
+      display: none; }
+  .activated #collage {
+    background-size: cover;
+    background-position: center;
+    background-image: url("http://i.imgur.com/6L8KY.jpg");
+    top: 12.5vh;
+    left: 20vw;
+    width: 60vw;
+    min-width: 800px;
+    height: 50vh;
+    min-height: 600px;
+    display: block; }
